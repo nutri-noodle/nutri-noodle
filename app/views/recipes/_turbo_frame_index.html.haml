@@ -1,0 +1,30 @@
+= turbo_frame_tag 'recipes' do
+  %table.table.table-striped.table-dark.table-hover.mt-4
+    %thead
+      %tr.border
+        %th(scope="col")
+          Id
+        %th(scope="col")
+          Name
+        %th(scope="col")
+          Total Time
+        %th(scope="col")
+          Active Time
+        %th(scope="col")
+          Image
+        %th(scope="col")
+          Score
+    - if local_assigns[:recipes]
+      = render 'turbo_frame_data', recipes: local_assigns[:recipes]
+      - existing_page = (local_assigns[:page] || 1).to_i
+      - show_previous = existing_page > 1
+      - if show_next? || show_previous
+        %tr
+          - if show_next?
+            %td
+              = link_to "Next", recipes_path(page: existing_page + 1), 'data-turbo-stream' => true, class: 'next-recipes-button btn btn-xs btn-primary', page: local_assigns[:page].to_i + 1, loaded: false
+          - if existing_page > 1
+            %td{colspan:5}
+              = link_to "Previous", recipes_path(page: existing_page - 1), 'data-turbo-stream' => true, class: 'previous-recipes-button btn btn-xs btn-primary'
+          - else
+            %td{colspan: 5}

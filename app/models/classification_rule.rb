@@ -1,0 +1,2 @@
+class ClassificationRule < ApplicationRecord
+end

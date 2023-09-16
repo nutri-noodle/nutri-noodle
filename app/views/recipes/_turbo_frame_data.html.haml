@@ -1,0 +1,19 @@
+- if local_assigns[:recipes]
+  %tbody
+    - recipes.each do |recipe|
+      %tr
+        %th(scope="col")
+          = recipe.id
+        %td(scope="col")
+          = recipe.pretty_name
+        %td(scope="col")
+          = recipe.total_time_display
+        %td(scope="col")
+          = recipe.active_time_display
+        - if false && image = recipe.thumbnail_image&.image_url(:tiny).presence
+          %td(scope="col")
+            = image_tag image
+        - else
+          %td(scope="col")
+        %td(scope="col")
+          = rand(100).round

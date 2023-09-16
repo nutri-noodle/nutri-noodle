@@ -1,0 +1,10 @@
+class CreateProfileMedicalConditions < ActiveRecord::Migration[7.0]
+  def change
+    create_table :profile_medical_conditions do |t|
+      t.references :profile, null: false, foreign_key: true
+      t.references :medical_condition, null: false, foreign_key: true
+
+      t.timestamps
+    end
+  end
+end

@@ -1,0 +1,2 @@
+class MealTime < ApplicationRecord
+end

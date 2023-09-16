@@ -1,0 +1,13 @@
+-content_for :content do
+  %btn-group{role: :group}
+    %button.btn.btn-outline-primary
+      =link_to "Home", home_path
+    %button.btn.btn-outline-primary
+      =link_to "Score Foods& Recipes", score_foods_path
+    %button.btn.btn-outline-primary
+      =link_to "Personalized Recommendations", recommendations_path
+    %button.btn.btn-outline-primary
+      =link_to "Nutrition Advice", nutrition_advice_path
+= render :template=>'layouts/application'
+= yield
+

@@ -1,0 +1,35 @@
+"nutrient_id","name","abbreviation_name","multiplier","round_to","default"
+198,"milliliters(ml)","ml",1,0,True
+384,"grams (g)","g",1,1,True
+385,"grams (g)","g",1,0,True
+191,"cal","cal",1,0,True
+192,"grams (g)","g",1,0,True
+194,"grams (g)","g",1,0,True
+214,"grams (g)","g",1,0,True
+196,"grams (g)","g",1,0,True
+206,"grams (g)","g",1,0,True
+213,"milligrams (mg)","mg",1,0,True
+193,"milligrams (mg)","mg",1,0,True
+200,"milligrams (mg)","mg",1,1,True
+201,"milligrams (mg)","mg",1,1,True
+210,"milligrams (mg)","mg",1,0,True
+217,"micrograms (mcg)","mcg",1,1,True
+218,"micrograms (mcg)","mcg",1,0,True
+203,"milligrams (mg)","mg",1,0,True
+197,"milligrams(mg)","mg",1,0,True
+208,"micrograms of retinol activity equivalents(mcg RAE)","mcg RAE",1,0,True
+202,"milligrams (mg)","mg",1,0,True
+207,"milligrams (mg)","mg",1,1,True
+209,"micrograms (mcg)","mcg",1,0,True
+215,"milligrams (mg)","mg",1,0,True
+216,"milligrams (mg)","mg",1,0,True
+221,"milligrams (mg)","mg",1,0,True
+205,"micrograms (mcg)","mcg",1,0,True
+195,"milligrams (mg)","mg",1,0,True
+211,"milligrams (mg)","mg",1,1,True
+199,"milligrams (mg)","mg",1,0,True
+212,"micrograms (mcg)","mcg",1,0,True
+204,"milligrams (mg)","mg",1,0,True
+220,"milligrams (mg)","mg",1,0,True
+219,"mcg","mcg",0.025,1,True
+386,"grams (g)","g",1,0,True

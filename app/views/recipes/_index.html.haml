@@ -1,0 +1,5 @@
+- if local_assigns[:recipes]
+  = render 'turbo_frame_index', recipes: local_assigns[:recipes]
+- else
+  = turbo_frame_tag 'recipes', src: recipes_path
+

@@ -1,0 +1,24 @@
+- tag_type_array = local_assigns[:tag_type_array].presence || Tag::RECIPE_INCLUDE_TAGS
+- main_ingredient_exclude = local_assigns[:main_ingredient_exclude].presence || true
+- display_allergens = local_assigns[:display_allergens] || true
+- prefix = local_assigns[:prefix] || ""
+.row
+  - tag_type_array.each do |tag_type|
+    .col
+      - tags = Tag.send(tag_type).reorder(Arel.sql("1")).pluck(Arel.sql("case when length(tags.display_name) > 0 then tags.display_name else tags.name end as name"), :id)
+      - if tag_type == :allergens && display_allergens
+        %label{:style => "display:block"}
+          Dietary Restrictions:
+        - selected = []
+        = select_tag "allergy_ids[]", options_from_collection_for_select(Tag.allergens.reorder(Arel.sql("lower(name)")), :id, :name, :selected => selected), :multiple => true, :class => 'multiselect', :id => "#{prefix}allergy_ids_select"
+      - else
+        - title = tag_type.to_s.titleize
+        .tag-filter
+          %label{:style => "display:block"}
+            = "#{title}:"
+          - unless (tag_type == :main_ingredients && main_ingredient_exclude)
+            = select_tag "#{tag_type}[]", options_from_collection_for_select(tags, :second, :first), :multiple => true, :class => 'multiselect', :id => "#{prefix}#{tag_type}_select"
+          - else
+            - tags = [["Include", tags.map{|name,id| [name, "include-#{id}", {:class => "include #{id}"}]}], ["Exclude", tags.map{|name,id| [name, "exclude-#{id}", {:class => "exclude #{id}"}]}]]
+            = select_tag "#{tag_type}[]", grouped_options_for_select(tags, nil), :multiple => true, :class => 'multiselect', :id => "#{prefix}#{tag_type}_select"
+

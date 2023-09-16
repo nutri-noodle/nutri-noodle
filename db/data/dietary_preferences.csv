@@ -1,0 +1,7 @@
+"id","parent_tag_id","name"
+2349,,"Dietary Preference"
+2359,2349,"Vegan"
+2360,2349,"Vegetarian"
+2354,2349,"Kosher"
+4496,2349,"Keto"
+2395,2349,"Paleo"
