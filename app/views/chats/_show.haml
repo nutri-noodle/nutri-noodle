@@ -6,7 +6,7 @@
           .p-2
             %ul.overflow-y-auto.flex.flex-col-reverse{:class => "max-h-[72vh]", :role => "list"}
               = turbo_stream_from "#{dom_id(@chat)}_messages"
-              %div{:id => "#{dom_id(@chat)}_messages"}
+              .msg_history{:id => "#{dom_id(@chat)}_messages"}
                 = render @chat.messages
             = render partial: "messages/form", locals: { chat: @chat }
       - else

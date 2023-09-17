@@ -27,4 +27,15 @@
       .notice #{notice}
     -if alert
       .alert #{alert}
-    = yield(:content)
+  -if user_signed_in?
+    %btn-group{role: :group}
+      %button.btn.btn-outline-primary
+        =link_to "Home", home_path
+      %button.btn.btn-outline-primary
+        =link_to "Score Foods& Recipes", score_foods_path
+      %button.btn.btn-outline-primary
+        =link_to "Personalized Recommendations", recommendations_path
+      %button.btn.btn-outline-primary
+        =link_to "Nutrition Advice", chat_index_path
+  = yield
+

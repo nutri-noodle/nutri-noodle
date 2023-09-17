@@ -84,6 +84,3 @@ gem "ruby-openai"
 gem "sidekiq"
 
 gem "devise", "~> 4.9"
-
-# Use Tailwind CSS [https://github.com/rails/tailwindcss-rails]
-gem "tailwindcss-rails"
