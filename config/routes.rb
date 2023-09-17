@@ -12,9 +12,7 @@ Rails.application.routes.draw do
   resources :recommendations, only: [:index]
   # get 'nutrition_advice', controller: 'nutrition_advice', action: "index"
 
-  resources :nutrition_advice, controller: :chats, as: :chat, only: %i[index create show] do
-    resources :messages, only: %i[create]
-  end
+  resources :nutrition_advice, controller: :messages, as: :messages, only: %i[index create show]
 
   get 'home', controller: 'home', action: "index"
   root 'home#index'

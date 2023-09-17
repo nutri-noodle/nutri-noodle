@@ -5,12 +5,20 @@ class MessagesController < ApplicationController
   before_action :authenticate_user!
 
   def create
-    @message = Message.create(message_params.merge(chat_id: params[:chat_id], role: "user"))
+    @message = current_user.messages.create(message_params.merge(role: "user"))
 
-    GetAiResponseJob.perform_later(@message.chat_id)
+    GetAiResponseJob.perform_later(current_user)
 
     respond_to do |format|
       format.turbo_stream
+    end
+  end
+
+  def index
+    @messages = current_user.messages
+    respond_to do |format|
+      format.turbo_stream
+      format.html
     end
   end
 

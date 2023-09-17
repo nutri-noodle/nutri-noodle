@@ -1,8 +1,12 @@
--if message.user?
-  .outgoing_msg.received_msg.received_withd_msg
-    %p #{message.content}
-    %span Me
--else
-  .incoming_msg.sent_msg
-    %p #{message.content}
-    %span NutriNoodle
+=turbo_frame_tag dom_id(message) do
+  .row(id="#{dom_id(message)}_container")
+    -if message.user?
+      .col.message.outgoing-message.align-self-start
+        %p #{message.content}
+        %span.time-date Me #{time_ago_in_words(message.updated_at)} ago
+      .col
+    -else
+      .col
+      .col.message.incoming-message.align-self-end
+        %p #{message.content}
+        %span.time-date NutriNoodle #{time_ago_in_words(message.updated_at)} ago

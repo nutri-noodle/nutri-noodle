@@ -4,6 +4,7 @@ import "./controllers"
 import './add_jquery'
 import * as bootstrap from "bootstrap"
 import "./application";
+import "@fortawesome/fontawesome-free/js/all";
 
 let popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
 let popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
