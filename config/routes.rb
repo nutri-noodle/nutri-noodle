@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  apipie
   devise_for :users
   namespace :api do
     resources :recipes, only: [:index, :show]
