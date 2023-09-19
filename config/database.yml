@@ -81,6 +81,4 @@ test:
 #
 production:
   <<: *default
-  database: food_scoring_production
-  username: food_scoring
-  password: <%= ENV["FOOD_SCORING_DATABASE_PASSWORD"] %>
+  url: <%= ENV["DATABASE_URL"] %>
