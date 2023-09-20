@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   # get 'nutrition_advice', controller: 'nutrition_advice', action: "index"
 
   resources :nutrition_advice, controller: :messages, as: :messages, only: %i[index create show]
+  delete :nutrition_advice, controller: :messages, action: :destroy, as: :delete_messages
 
   get 'home', controller: 'home', action: "index"
   root 'home#index'
