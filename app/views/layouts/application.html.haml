@@ -21,7 +21,7 @@
       = button_to "Logout", destroy_user_session_path, method: :delete, class: "btn btn-secondary"
     .container.mb-4
       = image_tag asset_path("logo.png"), style: 'height:100px;width:auto;'
-      %span.h1 Nutri-Noodle Demo App [HELLO!]
+      %span.h1 Nutri-Noodle Demo App
     -if notice
       .notice #{notice}
     -if alert
