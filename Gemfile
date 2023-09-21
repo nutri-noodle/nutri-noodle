@@ -83,4 +83,5 @@ gem "ruby-openai"
 # https://github.com/sidekiq/sidekiq
 gem "sidekiq"
 
-gem "devise", "~> 4.9"
+gem "devise"
+gem "simple_form"

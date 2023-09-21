@@ -7,13 +7,12 @@
     = csrf_meta_tags
     = csp_meta_tag
     = stylesheet_link_tag "application", "data-turbo-track": "reload"
-    = javascript_include_tag "application", "data-turbo-track": "reload", defer: true
     = stylesheet_link_tag "https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/css/tom-select.min.css"
     = favicon_link_tag asset_path('favicon.ico')
   %body.container.my-4
     .container.mb-4
       = image_tag asset_path("logo.png"), style: 'height:100px;width:auto;'
-      %span.h1 Nutri-Noodle Demo App
+      %span.h1 Nutri-Noodle Demo App (???)
     -if notice
       .notice #{notice}
     -if alert

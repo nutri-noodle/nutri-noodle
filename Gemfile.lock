@@ -237,6 +237,9 @@ GEM
       connection_pool (>= 2.3.0)
       rack (>= 2.2.4)
       redis-client (>= 0.14.0)
+    simple_form (5.2.0)
+      actionpack (>= 5.2)
+      activemodel (>= 5.2)
     sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -279,7 +282,7 @@ DEPENDENCIES
   bootsnap
   cssbundling-rails (~> 1.1)
   debug
-  devise (~> 4.9)
+  devise
   dotenv-rails
   haml-rails
   importmap-rails
@@ -293,6 +296,7 @@ DEPENDENCIES
   rspec-rails
   ruby-openai
   sidekiq
+  simple_form
   sprockets-rails
   stimulus-rails
   turbo-rails

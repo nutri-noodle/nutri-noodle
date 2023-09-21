@@ -11,14 +11,15 @@
     = stylesheet_link_tag "https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/css/tom-select.min.css"
     = favicon_link_tag asset_path('favicon.ico')
   %body.container.my-4
-    .navbar
-      %p.navbar-text.float-right
-      Logged in as
-      = succeed "." do
-        %strong= current_user.email
-      = link_to "Settings", edit_user_registration_path, class: "navbar-link"
-      |
-      = button_to "Logout", destroy_user_session_path, method: :delete, class: "btn btn-secondary"
+    - if user_signed_in?
+      .navbar
+        %p.navbar-text.float-right
+        Logged in as
+        = succeed "." do
+          %strong= current_user.email
+        = link_to "Settings", edit_user_registration_path, class: "navbar-link"
+        |
+        = button_to "Logout", destroy_user_session_path, method: :delete, class: "btn btn-secondary"
     .container.mb-4
       = image_tag asset_path("logo.png"), style: 'height:100px;width:auto;'
       %span.h1 Nutri-Noodle Demo App
