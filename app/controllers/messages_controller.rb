@@ -24,7 +24,6 @@ class MessagesController < ApplicationController
 
   def destroy
     @messages = current_user.messages.destroy_all
-    redirect_to messages_path
   end
 
   private
