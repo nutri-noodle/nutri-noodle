@@ -5,6 +5,10 @@ class GetAiResponseJob < ApplicationJob
 
   private
 
+  # def call_openai(user:)
+  #   message =user.messages.create(role: "assistant", content: "boo")
+  #   message.update(content: "the wagon goes to the goblin")
+  # end
   def call_openai(user:)
     message = user.messages.create(role: "assistant", content: "")
     OpenAI::Client.new.chat(

@@ -1,6 +1,6 @@
-= turbo_stream_from "messages"
+= turbo_stream_from dom_id(current_user, "messages")
 .grid.grid-cols-12.gap-2
-  #messages.col-span-3.bg-gray-200
+  .col-span-3.bg-gray-200(id="#{dom_id(current_user, "messages")}")
     = render @messages
   .col-span-9.bg-gray-300
     = render "form"
