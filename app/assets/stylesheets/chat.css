@@ -28,14 +28,17 @@
   overflow:hidden; margin:26px 0 26px;
 }
 
-.message p {
+.message p,pre {
   padding: 20px;
 }
 
-.incoming-message p {
+.incoming-message pre {
   background: #dcf6fe none repeat scroll 0 0;
   border-radius: 20px 20px 3px 20px;
   float: right;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-wrap: break-word;
 }
 
 .outgoing-message p {
