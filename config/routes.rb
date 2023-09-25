@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       post :filter
     end
   end
+  resource :profile, except: :index
   resources :score_foods, only: [:index]
   resources :recommendations, only: [:index]
   # get 'nutrition_advice', controller: 'nutrition_advice', action: "index"

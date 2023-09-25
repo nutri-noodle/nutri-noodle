@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_16_140205) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_25_200410) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -133,10 +133,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_16_140205) do
   end
 
   create_table "goals", force: :cascade do |t|
-    t.bigint "profile_id", null: false
+    t.bigint "profile_group_id", null: false
     t.integer "nutrient_id_filter", array: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "profile_id"
+    t.index ["profile_group_id"], name: "index_goals_on_profile_group_id"
     t.index ["profile_id"], name: "index_goals_on_profile_id"
   end
 
@@ -261,6 +263,40 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_16_140205) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "profile_allergens", force: :cascade do |t|
+    t.bigint "profile_id", null: false
+    t.bigint "allergen_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["profile_id"], name: "index_profile_allergens_on_profile_id"
+  end
+
+  create_table "profile_dietary_preferences", force: :cascade do |t|
+    t.bigint "profile_id", null: false
+    t.bigint "dietary_preference_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["profile_id"], name: "index_profile_dietary_preferences_on_profile_id"
+  end
+
+  create_table "profile_group_medical_conditions", force: :cascade do |t|
+    t.bigint "profile_id", null: false
+    t.bigint "medical_condition_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["medical_condition_id"], name: "index_profile_group_medical_conditions_on_medical_condition_id"
+    t.index ["profile_id"], name: "index_profile_group_medical_conditions_on_profile_id"
+  end
+
+  create_table "profile_groups", force: :cascade do |t|
+    t.string "name"
+    t.integer "min_age"
+    t.integer "max_age"
+    t.string "gender"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "profile_medical_conditions", force: :cascade do |t|
     t.bigint "profile_id", null: false
     t.bigint "medical_condition_id", null: false
@@ -271,12 +307,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_16_140205) do
   end
 
   create_table "profiles", force: :cascade do |t|
-    t.string "name"
-    t.integer "min_age"
-    t.integer "max_age"
+    t.bigint "user_id", null: false
+    t.bigint "goal_id", null: false
+    t.date "birthdate"
     t.string "gender"
+    t.float "weight"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.float "height"
+    t.index ["goal_id"], name: "index_profiles_on_goal_id"
+    t.index ["user_id"], name: "index_profiles_on_user_id"
   end
 
   create_table "recipe_steps", force: :cascade do |t|
@@ -314,19 +354,27 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_16_140205) do
   add_foreign_key "food_available_meal_times", "foods"
   add_foreign_key "food_available_meal_times", "meal_times"
   add_foreign_key "food_profile_scores", "foods"
-  add_foreign_key "food_profile_scores", "profiles"
+  add_foreign_key "food_profile_scores", "profile_groups", column: "profile_id"
   add_foreign_key "goal_factors", "goals"
   add_foreign_key "goal_factors", "meal_times"
   add_foreign_key "goal_factors", "nutrients"
-  add_foreign_key "goals", "profiles"
+  add_foreign_key "goals", "profile_groups"
   add_foreign_key "ingredients", "foods", column: "recipe_id"
   add_foreign_key "messages", "users"
   add_foreign_key "nutrient_goal_weights", "goals"
   add_foreign_key "nutrient_goal_weights", "nutrients"
   add_foreign_key "nutrient_goals", "goals"
   add_foreign_key "nutrient_goals", "nutrients"
+  add_foreign_key "profile_allergens", "profiles"
+  add_foreign_key "profile_allergens", "tags", column: "allergen_id"
+  add_foreign_key "profile_dietary_preferences", "profiles"
+  add_foreign_key "profile_dietary_preferences", "tags", column: "dietary_preference_id"
+  add_foreign_key "profile_group_medical_conditions", "medical_conditions"
+  add_foreign_key "profile_group_medical_conditions", "profile_groups", column: "profile_id"
   add_foreign_key "profile_medical_conditions", "medical_conditions"
   add_foreign_key "profile_medical_conditions", "profiles"
+  add_foreign_key "profiles", "goals"
+  add_foreign_key "profiles", "users"
   add_foreign_key "recipe_steps", "foods", column: "recipe_id"
   add_foreign_key "tags", "tags", column: "parent_tag_id"
 end

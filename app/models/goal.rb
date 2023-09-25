@@ -1,5 +1,5 @@
 class Goal < ApplicationRecord
-  belongs_to :profile, :inverse_of =>:goal
+  belongs_to :profile_group, :inverse_of =>:goal
   # joins to :nutrient here breaks tests in funny ways
   has_many :nutrient_goals, -> {includes(:nutrient).order(:nutrient_id)}, :autosave=>true, :dependent=>:destroy, :inverse_of => :goal
   has_many :nutrient_goal_weights, -> {includes(:nutrient).order(:nutrient_id)}, :autosave=>true, :dependent=>:destroy, :inverse_of => :goal
