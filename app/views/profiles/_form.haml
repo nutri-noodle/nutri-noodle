@@ -3,7 +3,7 @@
     .row.my-3
       .col-12
         .form-label Birthday
-        =f.text_field :birthdate, {"data-provide" => "datepicker"}
+        =f.text_field :birthdate, {"data-controller": :flatpickr, "class": "date-field"}
       .col-12
         .form-label Gender
       .col-12
