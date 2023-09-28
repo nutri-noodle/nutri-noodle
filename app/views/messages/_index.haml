@@ -1,5 +1,5 @@
-= turbo_stream_from dom_id(current_user, "messages")
 = turbo_stream.update "home" do
+  = turbo_stream_from dom_id(current_user, "messages")
   .grid.grid-cols-12.gap-2
     .col-span-3.bg-gray-200(id="#{dom_id(current_user, "messages")}")
       = render messages
