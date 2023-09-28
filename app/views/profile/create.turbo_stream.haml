@@ -1,0 +1,4 @@
+= turbo_stream.update "home" do
+  = render "form", profile: @profile
+= turbo_stream.replace dom_id(current_user, :navbar)
+  = render 'layouts/navigation'

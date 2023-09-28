@@ -4,3 +4,4 @@
       = form.text_area :content, rows: 4, class: "write_msg form-control", placeholder: "Type a message", autofocus: true, "x-on:keydown.cmd.enter" => "$event.target.form.requestSubmit();"
       = form.button type: :submit, class: "msg_send_btn"  do
         %i.fa-solid.fa-paper-plane
+      = select_tag :questions, options_for_select(Message::QUESTIONS), {data: {controller: 'tom-select'}, placeholder: 'Conditions ', class: 'form-control'}

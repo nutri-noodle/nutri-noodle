@@ -28,4 +28,11 @@ class Message < ApplicationRecord
   def self.for_openai(messages)
     messages.map { |message| { role: message.role, content: message.content } }
   end
+
+  QUESTIONS = [
+    'Interesting Question',
+    'Another Interesting Question',
+    'A very clever Question',
+    'Relevant Question',
+  ]
 end

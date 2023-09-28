@@ -7,5 +7,5 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :messages
-  has_one :profile
+  has_one :profile, inverse_of: :user
 end

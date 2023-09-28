@@ -1,0 +1,12 @@
+=turbo_frame_tag dom_id(current_user, :navbar) do
+  %nav.navbar.navbar-expand-lg.justify-content-between
+    .navbar-brand
+      = image_tag asset_path("logo.png"), style: 'height:100px;width:auto;'
+      %span.h1 Nutri-Noodle Demo App
+    - if user_signed_in?
+      .navbar-nav
+        = link_to (current_user.profile.present?? profile_path() :'#'), class: "btn btn-light nav-item", "data-turbo-stream": true do
+          Profile
+        = button_to edit_user_registration_path, class: "btn btn-light nav-item" do
+          %i.fa-solid.fa-cog
+        = button_to "Logout", destroy_user_session_path, method: :delete, class: "nav-item btn btn-secondary"

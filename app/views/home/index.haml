@@ -1,13 +1,5 @@
-.card
-  .card-body
-    .card-title
-      %i.bi.bi-check-circle.text-success
-      The demo is intended to help demonstrate the possibilities of
-      our clinically proven nutrition algorithms (our IP)
-      coupled with the power of AI.
-    %ul
-      %li Scoring hundreds of thousands of foods and recipes without requiring food logging.
-      %li Personalized recommendations and food logging for clinical patients
-      %li Nutrition advice
-    %p
-      All of this is provided by several groups of APIs, so that users of the Nutri-Noodle can pick and choose to suit their use case.
+=turbo_frame_tag "home" do
+  -if current_user.profile.present?
+    =render 'messages/index', messages: current_user.messages
+  -else
+    =render 'profile/form', profile: current_user.build_profile

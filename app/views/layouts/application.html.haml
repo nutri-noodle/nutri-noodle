@@ -12,17 +12,7 @@
     = stylesheet_link_tag "https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
     = favicon_link_tag asset_path('favicon.ico')
   %body.container.my-4
-    %nav.navbar.navbar-expand-lg.justify-content-between
-      .navbar-brand
-        = image_tag asset_path("logo.png"), style: 'height:100px;width:auto;'
-        %span.h1 Nutri-Noodle Demo App
-      - if user_signed_in?
-        .navbar-nav
-          = link_to '#', class: "btn btn-light nav-item" do
-            Profile
-          = button_to edit_user_registration_path, class: "btn btn-light nav-item" do
-            %i.fa-solid.fa-cog
-          = button_to "Logout", destroy_user_session_path, method: :delete, class: "nav-item btn btn-secondary"
+    =render "layouts/navigation"
     -if notice
       .notice #{notice}
     -if alert

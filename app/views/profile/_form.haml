@@ -1,15 +1,9 @@
 =turbo_frame_tag dom_id(profile) do
-  = form_for(profile, url: profile_path(profile)) do |f|
+  = form_for(profile, url: profile_path) do |f|
     .row.my-3
       .col-12
-        .form-label Birthday
-        =f.text_field :birthdate, {"data-controller": :flatpickr, "class": "date-field"}
-      .col-12
         .form-label Gender
-      .col-12
-        .form-label Weight
-      .col-12
-        .form-label Height
+        = f.select :gender, Profile::GENDERS.map {|a| [a.humanize,a]}, {}, {multiple: false, data: {controller: 'tom-select'}, placeholder: 'Gender ', class: 'form-control'}
       .col-12
         .form-label Conditions
         = f.select :medical_condition_ids, MedicalCondition.order(:name).pluck(:name, :id), {}, {multiple: true, data: {controller: 'tom-select'}, placeholder: 'Conditions ', class: 'form-control'}
