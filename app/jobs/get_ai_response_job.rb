@@ -14,7 +14,7 @@ class GetAiResponseJob < ApplicationJob
     OpenAI::Client.new.chat(
       parameters: {
         model: "gpt-3.5-turbo",
-        messages: Message.for_openai(user.messages),
+        messages: user.profile.for_openai + Message.for_openai(user.messages),
         temperature: 0.1,
         stream: stream_proc(message: message)
       }

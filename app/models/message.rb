@@ -30,9 +30,9 @@ class Message < ApplicationRecord
   end
 
   QUESTIONS = [
-    'Interesting Question',
-    'Another Interesting Question',
-    'A very clever Question',
-    'Relevant Question',
+    'Can you recommend a recipe?',
+    'Can you recommand a food?',
+    'Give me a meal plan for 3 days',
+    'Give me a shopping list',
   ]
 end

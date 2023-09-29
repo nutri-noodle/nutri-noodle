@@ -27,4 +27,18 @@ class Profile < ApplicationRecord
   broadcasts_to(->(profile) { profile.user.dom_id(profile.user, :profile) },
                 target: ->(profile) { profile.user.dom_id(profile.user, :profile) })
 
+  def get_conditions_helper(relation, text)
+    tmp = send(relation).map(&:name)
+    tmp.present?? "#{text}: #{tmp.join(",")}" : nil
+  end
+
+  def get_conditions
+    [get_conditions_helper(:medical_conditions, "I have the following medical conditions"),
+     get_conditions_helper(:allergens, "I have the following allergies"),
+     get_conditions_helper(:dietary_preferences, "I have the following dietary preferences")
+    ].compact
+  end
+  def for_openai
+    [{role: :user, content: get_conditions.join("\n")}]
+  end
 end
