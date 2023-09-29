@@ -5,6 +5,7 @@
       = form.button type: :submit, class: "msg_send_btn"  do
         %i.fa-solid.fa-paper-plane
       = select_tag :questions, options_for_select(Message::QUESTIONS), {include_blank: true, data: {controller: 'tom-select'}, placeholder: 'Questions ', class: 'form-control'}
+
 :javascript
   $('#questions').on('change', function() {
     $('#message_content').val($(this).val())

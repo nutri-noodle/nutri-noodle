@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   delete :nutrition_advice, controller: :messages, action: :destroy, as: :delete_messages
 
   get 'home', controller: 'home', action: "index"
+  get 'shopping_list', controller: 'shopping_list', action: 'show'
   root 'home#index'
   # mount Sidekiq::Web => '/sidekiq'
 end

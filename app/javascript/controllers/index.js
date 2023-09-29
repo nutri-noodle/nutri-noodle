@@ -9,3 +9,6 @@ application.register("tom-select", TomSelectController)
 
 import flatpickr from "./flatpickr_controller"
 application.register("flatpickr", flatpickr)
+
+import instacart from "./instacart_controller"
+application.register("instacart", instacart)

@@ -1,0 +1,13 @@
+%h1 Shopping List
+%div{ itemscope: true, itemtype: "https://schema.org/Recipe"}
+  %ul
+    %li{itemProp: :name} Shopping List
+    %li{itemProp: :recipeInstructions} Mix gravel and mud. Bake under sun for a day. Consume with eye of newt and a dash of salt.
+    %li{itemProp: :publisher} Nutri-Noodle
+    %li
+      = image_tag asset_path("logo.png"), style: 'height:100px;width:auto;'
+  %ul
+    -@messages.each do |item|
+      - item.content.split("\n").each do |ingredient|
+        %li{itemProp: "recipeIngredient"}
+          = "#{ingredient}"
