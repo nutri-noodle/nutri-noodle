@@ -35,4 +35,31 @@ class Message < ApplicationRecord
     'Give me a meal plan for 3 days',
     'Give me a shopping list',
   ]
+
+  def matching_foods
+    Food.find_by_sql(%Q(
+      select foods.* from foods, messages
+      where
+      to_tsvector(messages.raw_content) @@ plainto_tsquery(coalesce(foods.display_name, foods.name)) = true
+      and messages.id = #{id}
+      order by length(coalesce(foods.display_name, foods.name)) desc
+      ))
+  end
+
+  before_update :markup_content, if: ->(me) {me.assistant? && me.raw_content_changed?}
+
+  def markup_content
+    self.content = raw_content
+    matching_foods.each do |food|
+      str=<<-END
+        <a href='#'
+        data-controller="hovercard"
+        data-hovercard-url-value="/food_hover/#{food.id}"
+        data-action="mouseenter->hovercard#show mouseleave->hovercard#hide"
+        >#{food.pretty_name} SCORE #{rand(100).round}</a>
+      END
+      puts "what is the fucking str? #{str}"
+      self.content.gsub!(/[^>]\b(#{food.pretty_name})\b/i, str)
+    end
+  end
 end

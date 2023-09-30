@@ -7,5 +7,6 @@
       .col
     -else
       .col.message.incoming-message.align-self-end
-        %pre #{message.content}
+        %pre
+          !=message.content
         %span.time-date NutriNoodle #{time_ago_in_words(message.updated_at)} ago

@@ -12,3 +12,6 @@ application.register("flatpickr", flatpickr)
 
 import instacart from "./instacart_controller"
 application.register("instacart", instacart)
+
+import hovercard from "./hovercard_controller"
+application.register("hovercard", hovercard)

@@ -19,6 +19,7 @@ Rails.application.routes.draw do
 
   get 'home', controller: 'home', action: "index"
   get 'shopping_list', controller: 'shopping_list', action: 'show'
+  get 'food_hover/:id', controller: 'food_hover', action: 'show'
   root 'home#index'
   # mount Sidekiq::Web => '/sidekiq'
 end
