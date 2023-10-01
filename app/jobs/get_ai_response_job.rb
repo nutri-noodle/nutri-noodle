@@ -26,9 +26,7 @@ class GetAiResponseJob < ApplicationJob
       new_content = chunk.dig("choices", 0, "delta", "content")
       completed = !chunk.dig("choices",0,"finish_reason").nil?
       if completed
-        message.raw_content = message.content + (new_content || '')
-        message.markup_content
-        message.save
+        message.markup_content_and_update
       else
         message.update(content: (message.content||"") + new_content.gsub("\n","<br/>\n"))
       end

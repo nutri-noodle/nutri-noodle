@@ -49,21 +49,32 @@ class Message < ApplicationRecord
       limit 1000
       ))
   end
-# before_update :markup_content, if: ->(me) {me.assistant? && me.raw_content_changed?}
+
+  # before_update :markup_content, if: ->(me) {me.assistant? && me.raw_content_changed?}
 # CREATE INDEX food_names on foods USING GIN (to_tsvector('english', coalesce(foods.display_name, foods.name)));
   def markup_content
-    self.content = raw_content
+    self.content = raw_content.dup
     if /Ingredients:(?<ingredients>(.|\n)+)Instructions:/m =~ content
       marker = ingredients.dup
       matching_foods.each do |arr|
         (food_name, food_id) = arr
         str=<<~END
           <div data-controller="hovercard" data-hovercard-url-value="/food_hover/#{food_id}" data-action="mouseenter->hovercard#show mouseleave->hovercard#hide">
-          <a href='#'>\\1 SCORE #{rand(100).round}</a></div>
+          <a href='#'>\\1 SCORE #{rand(50..100).round}</a></div>
         END
         ingredients.sub!(/\b(#{food_name})\b/i, str)
       end
       self.content[marker] = ingredients
     end
+  end
+
+  def markup_content_and_update
+    ## why?? why the fuck do I have to save and reload in the content of a get_ai_response
+    ## job??? otherwise content doesn't think it has changed, WTF?
+    self.raw_content = content
+    save!
+    reload
+    markup_content
+    save!
   end
 end
