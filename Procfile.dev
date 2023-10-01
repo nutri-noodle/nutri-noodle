@@ -1,5 +1,6 @@
 # Procfile.dev
-web: bin/rdbg --port 8989 --open --nonstop --command -- bin/rails server
+# web: bin/rdbg --port 8989 --open --nonstop --command -- bin/rails server
+web: bin/rails server
 sidekiq: bundle exec sidekiq -c 2
 queue: redis-server --dir tmp
 css: yarn watch:css
