@@ -37,29 +37,33 @@ class Message < ApplicationRecord
   ]
 
   def matching_foods
-    Food.find_by_sql(%Q(
-      select foods.* from foods, messages
+    ActiveRecord::Base.connection.select_rows(%Q(
+      WITH base as (
+      select coalesce(foods.common_name, foods.display_name, foods.name) as name, foods.id as id from foods, messages
       where
-      to_tsvector(messages.raw_content) @@ plainto_tsquery(coalesce(foods.display_name, foods.name)) = true
-      and messages.id = #{id}
-      order by length(coalesce(foods.display_name, foods.name)) desc
+      to_tsvector(messages.raw_content) @@ plainto_tsquery(coalesce(foods.common_name, foods.display_name, foods.name)) = true
+      and messages.id = #{id})
+      select name, max(id) from base
+      group by name
+      order by max(length(name)) desc
+      limit 1000
       ))
   end
-
-  before_update :markup_content, if: ->(me) {me.assistant? && me.raw_content_changed?}
-
+# before_update :markup_content, if: ->(me) {me.assistant? && me.raw_content_changed?}
+# CREATE INDEX food_names on foods USING GIN (to_tsvector('english', coalesce(foods.display_name, foods.name)));
   def markup_content
     self.content = raw_content
-    matching_foods.each do |food|
-      str=<<-END
-        <a href='#'
-        data-controller="hovercard"
-        data-hovercard-url-value="/food_hover/#{food.id}"
-        data-action="mouseenter->hovercard#show mouseleave->hovercard#hide"
-        >#{food.pretty_name} SCORE #{rand(100).round}</a>
-      END
-      puts "what is the fucking str? #{str}"
-      self.content.gsub!(/[^>]\b(#{food.pretty_name})\b/i, str)
+    if /Ingredients:(?<ingredients>(.|\n)+)Instructions:/m =~ content
+      marker = ingredients.dup
+      matching_foods.each do |arr|
+        (food_name, food_id) = arr
+        str=<<~END
+          <div data-controller="hovercard" data-hovercard-url-value="/food_hover/#{food_id}" data-action="mouseenter->hovercard#show mouseleave->hovercard#hide">
+          <a href='#'>\\1 SCORE #{rand(100).round}</a></div>
+        END
+        ingredients.sub!(/\b(#{food_name})\b/i, str)
+      end
+      self.content[marker] = ingredients
     end
   end
 end

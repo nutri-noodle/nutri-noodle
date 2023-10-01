@@ -2,11 +2,11 @@
   .row(id="#{dom_id(message)}_container")
     -if message.user?
       .col.message.outgoing-message.align-self-start
-        %p #{message.content}
+        %p.message-content #{message.content}
         %span.time-date Me #{time_ago_in_words(message.updated_at)} ago
       .col
     -else
       .col.message.incoming-message.align-self-end
-        %pre
+        .message-content
           !=message.content
         %span.time-date NutriNoodle #{time_ago_in_words(message.updated_at)} ago

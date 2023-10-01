@@ -24,7 +24,14 @@ class GetAiResponseJob < ApplicationJob
   def stream_proc(message:)
     proc do |chunk, _bytesize|
       new_content = chunk.dig("choices", 0, "delta", "content")
-      message.update(raw_content: message.content + new_content) if new_content
+      completed = !chunk.dig("choices",0,"finish_reason").nil?
+      if completed
+        message.raw_content = message.content + (new_content || '')
+        message.markup_content
+        message.save
+      else
+        message.update(content: (message.content||"") + new_content.gsub("\n","<br/>\n"))
+      end
     end
   end
 end
